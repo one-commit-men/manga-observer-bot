@@ -22,6 +22,7 @@ class SwitchCommandTest {
 
     @Test
     fun testIt() {
+        println("IMMA USING ${System.getProperty("describe")} version")
         Mockito.`when`(input.chatIdFromMessage).thenReturn(22)
         Mockito.`when`(dbConnector.changeSubscriptionStateOfSubscriber(user.chatId)).thenAnswer { user.subscriptionsActiveStatus = !user.subscriptionsActiveStatus; user.subscriptionsActiveStatus }
         val switch = SwitchCommand(input)
