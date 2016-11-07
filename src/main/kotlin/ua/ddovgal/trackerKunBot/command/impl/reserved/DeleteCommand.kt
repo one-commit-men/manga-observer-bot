@@ -39,7 +39,7 @@ class DeleteCommand : ParameterNeedCommand, ReservedCommand {
 
             message = nothing + subscriptions.mapIndexed { i, title ->
                 "${Emoji.PAGE_WITH_CURL}/${i + 1} [${title.source.name}/" +
-                        "${title.source.language.shortName}] ${title.name}"
+                        "${title.source.language}] ${title.name}"
             }.joinToString(separator = "\n")
             dbConnector.updateSubscribersState(chatId, SubscriberState.WAITING_FOR_REMOVE_SELECTION)
         }
