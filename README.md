@@ -1,4 +1,5 @@
 # Tracker kun
+[![Build Status](https://travis-ci.org/one-commit-men/manga-observer-bot.svg?branch=dev)](https://travis-ci.org/one-commit-men/manga-observer-bot)
 ###Simple telegram bot to track manga chapters
 
 Currently, you can use manga from this sources:
