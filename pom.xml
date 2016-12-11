@@ -127,6 +127,7 @@
                 <version>2.19.1</version>
                 <configuration>
                     <argLine>-Ddescribe=${describe}</argLine>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
                 <dependencies>
                     <dependency>
