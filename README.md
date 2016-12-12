@@ -20,5 +20,5 @@ If you found some bug\want to add new source - notify me in telegram [@ddovgal](
 
 ###Work with docker:
 - to run program from docker you need installed docker, and write 2 comands in docker's CLI
-- docker build -t image-name link-to-gihub 
-- docker run image-name
+- `docker build -t [image-name] [link-to-gihub]` 
+- `docker run [image-name]`
