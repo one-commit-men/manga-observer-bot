@@ -19,6 +19,6 @@ If you found some bug\want to add new source - notify me in telegram [@ddovgal](
 *In release archives it will be complete, generated `main` file, so you will not need to use Maven*
 
 ###Work with docker:
--to run program from docker you need installed docker, and write 2 comands in docker's CLI
--docker build -t image-name link-to-gihub 
--docker run image-name
+- to run program from docker you need installed docker, and write 2 comands in docker's CLI
+- docker build -t image-name link-to-gihub 
+- docker run image-name
