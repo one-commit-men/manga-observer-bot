@@ -3,4 +3,4 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 RUN chmod +x ./target/bin/main
-CMD ./target/bin/main
+CMD target/bin/main
