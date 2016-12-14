@@ -1,6 +1,8 @@
 FROM maven:3.3-jdk-8-onbuild
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR target/bin
+RUN mkdir /usr/src/disk
+VOLUME /usr/src/disk
 
-RUN chmod +x ./target/bin/main
-CMD target/bin/main
+RUN cp -R ./../.. /usr/src/disk
+RUN chmod +x ./main
+CMD ./main

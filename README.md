@@ -18,7 +18,11 @@ If you found some bug\want to add new source - notify me in telegram [@ddovgal](
 **NOTE**: you need to define your own `BOT_TOKEN` and `BOT_USERNAME` in `BotConfig.kt`  
 *In release archives it will be complete, generated `main` file, so you will not need to use Maven*
 
-###Work with docker:
-- to run program from docker you need installed docker, and write 2 comands in docker's CLI
-- `docker build -t [image-name] [link-to-gihub]` 
+###Working with docker:
+As a first step - install docker for your platform
+######To run program from docker image, you must write 2 commands in docker's CLI
+- `docker build -t [image-name] [link-to-gihub]` (https://github.com/one-commit-men/manga-observer-bot.git#dev)
 - `docker run [image-name]`
+######To just compile program and get the result, you must write different second command in docker's CLI
+- `docker run -it -v [result destination]:/usr/src/disk [image-name] cp -R ./../.. /usr/src/disk`
+After this, you will have compiled, ready to work program on your local `[result destination]` folder
