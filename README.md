@@ -20,9 +20,11 @@ If you found some bug\want to add new source - notify me in telegram [@ddovgal](
 
 ###Working with docker:
 As a first step - install docker for your platform
-######To run program from docker image, you must write 2 commands in docker's CLI
+
+#####To run program from docker image, you must write 2 commands in docker's CLI
 - `docker build -t [image-name] [link-to-gihub]` (https://github.com/one-commit-men/manga-observer-bot.git#dev)
 - `docker run [image-name]`
-######To just compile program and get the result, you must write different second command in docker's CLI
+
+#####To just compile program and get the result, you must write different second command in docker's CLI
 - `docker run -it -v [result destination]:/usr/src/disk [image-name] cp -R ./../.. /usr/src/disk`
 After this, you will have compiled, ready to work program on your local `[result destination]` folder
