@@ -13,12 +13,9 @@ abstract class ParameterNeedCommand : BaseCommand {
     protected abstract val chatId: Long
     protected abstract val stateNeed: SubscriberState
 
-    //todo here
-    protected constructor() : super() {
-        this.inputData = CommandInputData(Update())
-    }
+    protected constructor() : this(CommandInputData(Update()))
 
-    constructor(inputData: CommandInputData) : super() {
+    constructor(inputData: CommandInputData) {
         this.inputData = inputData
     }
 
