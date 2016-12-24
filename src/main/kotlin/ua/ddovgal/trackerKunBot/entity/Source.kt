@@ -1,20 +1,10 @@
 package ua.ddovgal.trackerKunBot.entity
 
+import ua.ddovgal.trackerKunBot.service.TryCaughtException
 import ua.ddovgal.trackerKunBot.source.Language
 import java.util.*
 
-abstract class Source {
-
-    val url: String
-    val name: String
-    val language: Language
-
-    constructor() : this("", "", Language.ENGLISH)
-    constructor(url: String, name: String, language: Language) {
-        this.url = url
-        this.name = name
-        this.language = language
-    }
+abstract class Source(val url: String, val name: String, val language: Language) {
 
     /**
      * @return Last chapter release url, or 'null' if it not exist

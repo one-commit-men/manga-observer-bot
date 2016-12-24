@@ -1,19 +1,23 @@
 package ua.ddovgal.trackerKunBot.entity
 
+import com.j256.ormlite.field.DatabaseField
+import com.j256.ormlite.table.DatabaseTable
 import ua.ddovgal.trackerKunBot.source.SourceManager
 import java.util.*
 
-open class Title(val name: String, val url: String) {
+@DatabaseTable
+data class Title(@DatabaseField val name: String,
+                 @DatabaseField(id = true) val url: String) {
 
-    var lastCheckedChapterName: String = ""
-    var lastCheckedChapterUrl: String = ""
-    var lastCheckedChapterReleaseDate: Date = Date()
-    var subscribersCount: Long = 0
-    var asVariantUsingCount: Long = 1
+    @DatabaseField var lastCheckedChapterName: String = ""
+    @DatabaseField var lastCheckedChapterUrl: String = ""
+    @DatabaseField var lastCheckedChapterReleaseDate: Date = Date()
+    @DatabaseField var subscribersCount: Long = 0
+    @DatabaseField var asVariantUsingCount: Long = 1
 
-    var source: Source = SourceManager.getSourceByTitleUrl(url)
+    val source: Source by lazy { SourceManager.getSourceByTitleUrl(url) }
 
-    //no param constructor with just empty implementation of Source
+    //no param constructor for ORM
     constructor() : this("", "")
 
     fun checkLastChapterName() = source.checkLastChapterName(url)
