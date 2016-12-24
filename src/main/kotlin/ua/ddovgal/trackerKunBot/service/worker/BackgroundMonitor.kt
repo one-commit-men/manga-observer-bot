@@ -10,12 +10,16 @@ import ua.ddovgal.trackerKunBot.entity.Subscriber
 import ua.ddovgal.trackerKunBot.entity.Title
 import ua.ddovgal.trackerKunBot.service.Emoji
 import ua.ddovgal.trackerKunBot.service.TryCaughtException
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class BackgroundMonitor : Runnable {
 
     private val botInstance = TrackerKunBot
     private val dbConnector = DatabaseConnector
     private val logger = LoggerFactory.getLogger(BackgroundMonitor::class.java)
+
+    private var waitTimeIteration = 1
 
     override fun run() = inspection()
 
@@ -30,10 +34,16 @@ class BackgroundMonitor : Runnable {
             } catch(e: TryCaughtException) {
                 logger.warn("There is no chapters in [${it.name}/${it.url}]")
                 return@forEach
+            } catch (e: IOException) {
+                logger.warn("IOException at latest chapter [${it.name}]", e)
+                TimeUnit.SECONDS.sleep(getFibonacciForIteration(waitTimeIteration))
+                waitTimeIteration++
+                return@forEach
             } catch (e: Exception) {
                 logger.error("Cant load latest chapter's URL of [${it.name}/${it.url}]", e)
                 return@forEach
             }
+            waitTimeIteration = 1
 
             if (latestChapterUrl != it.lastCheckedChapterUrl) {
                 it.lastCheckedChapterUrl = latestChapterUrl
@@ -55,6 +65,8 @@ class BackgroundMonitor : Runnable {
                 notifySubscribers(activeSubscribersOfTitle, it, false)
             }
         }
+
+        waitTimeIteration = 1
     }
 
     private fun notifySubscribers(subscribers: List<Subscriber>, title: Title, wasUpdated: Boolean) {
@@ -89,5 +101,17 @@ class BackgroundMonitor : Runnable {
                 logger.error("Cant send message", e)
             }
         }
+    }
+
+    private fun getFibonacciForIteration(waitTimeIteration: Int): Long {
+        val feb = IntArray(waitTimeIteration + 1)
+
+        feb[0] = 1
+        feb[1] = 2
+        for (i in 2..waitTimeIteration - 1) {
+            feb[i] = feb[i - 1] + feb[i - 2]
+        }
+
+        return feb[waitTimeIteration].toLong()
     }
 }
