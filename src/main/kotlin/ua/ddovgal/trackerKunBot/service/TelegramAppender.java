@@ -35,7 +35,7 @@ public class TelegramAppender extends AppenderSkeleton {
 
     @Override
     protected void append(LoggingEvent loggingEvent) throws RuntimeException {
-        if ((receiverId != 0) && (botToken != null)) {
+        if (receiverId != 0 && botToken != null) {
             final String urlString = BOT_API_URL + botToken + "/sendMessage";
             try {
                 final URL url = new URL(urlString);

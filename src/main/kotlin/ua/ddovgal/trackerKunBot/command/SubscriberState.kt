@@ -1,5 +1,8 @@
 package ua.ddovgal.trackerKunBot.command
 
+import com.j256.ormlite.table.DatabaseTable
+
+@DatabaseTable
 enum class SubscriberState(val description: String) {
     USELESS("If state is useless for some command"),
     WAITING_FOR_ANYTHING("Just started/same as just started, but after some number of command loops"),

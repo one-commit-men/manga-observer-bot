@@ -4,11 +4,11 @@ import ua.ddovgal.trackerKunBot.command.*
 import ua.ddovgal.trackerKunBot.service.Emoji
 
 
-class DeleteCommand : ParameterNeedCommand, ReservedCommand {
+class ListCommand : ParameterNeedCommand, ReservedCommand {
 
     constructor(inputData: CommandInputData) : super(inputData)
 
-    override val commandName: String = "delete"
+    override val commandName: String = "list"
 
     override val chatId = inputData.chatIdFromMessage
 
@@ -18,7 +18,7 @@ class DeleteCommand : ParameterNeedCommand, ReservedCommand {
 
     override fun extractState(inputData: CommandInputData) = inputData.chatStateFromMessage
 
-    override fun fabricMethod(inputData: CommandInputData) = DeleteCommand(inputData)
+    override fun fabricMethod(inputData: CommandInputData) = ListCommand(inputData)
 
     override fun getIfSuitable(inputData: CommandInputData): Command? {
         val firstCheck = super<ReservedCommand>.getIfSuitable(inputData)
@@ -31,18 +31,13 @@ class DeleteCommand : ParameterNeedCommand, ReservedCommand {
         val subscriptions = dbConnector.getSubscriptionsOfSubscriber(chatId)
 
         val message: String
-
-        if (subscriptions.isEmpty()) message = "There is nothing in your observable list ${Emoji.PENSIVE_FACE}"
-        else {
-            val none = "${Emoji.CROSS_MARK}/0 I changed my mind :D\n"
-
-            message = none + subscriptions
-                    .mapIndexed { i, title ->
-                        "${Emoji.PAGE_WITH_CURL}/${i + 1} [${title.source.name}/" +
-                        "${title.source.language.shortName}] ${title.name}"
-            }.joinToString(separator = "\n")
-            dbConnector.updateSubscribersState(chatId, SubscriberState.WAITING_FOR_REMOVE_SELECTION)
-        }
+        if (subscriptions.isEmpty()) message = "Your list is empty ${Emoji.CONFOUNDED_FACE}"
+        else message = subscriptions
+                .mapIndexed { i, title ->
+                    "${Emoji.PAGE_WITH_CURL}${i + 1}. " +
+                            "[${title.source.name}/${title.source.language.shortName}] ${title.name}"
+                }
+                .joinToString(separator = "\n")
 
         trackerKun.sendSimpleMessage(message, chatId)
     }
@@ -51,7 +46,7 @@ class DeleteCommand : ParameterNeedCommand, ReservedCommand {
     private constructor() : super()
 
     companion object {
-        val empty = DeleteCommand()
+        val empty = ListCommand()
     }
     //endregion
 }
