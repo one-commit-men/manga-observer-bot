@@ -24,14 +24,16 @@ As a first step - install docker for your platform
 #####To run program from docker image, you must write this commands
 - `git clone https://github.com/one-commit-men/manga-observer-bot.git`
 - `cd manga-observer-bot`
-- in `Dockerfile` modify two ENVs to your's by some method
-- `docker build -t [image-name] .`
-- `docker run [image-name] --env CREATOR_CHAT_ID=[creator-id] --env LOG4J_LOGGER_BOT_TOKEN=[bot-token]`
-    
+- `nano Dockerfile` and then replace `BOT_TOKEN` and `DATABASE_URL` `ENV` values with your own
+
     - <sup>`BOT_TOKEN` is a token of your bot from BotFather
-    - <sup>`CREATOR_CHAT_ID` is a id of chat, where Log4J will send errors
-    - <sup>`DATABASE_URL` is a url of database, where all the bot's data will exist
-    - <sup>`DATABASE_URL` is same as a `BOT_TOKEN`, but for Log4J reports bot<sub><sup>
+    - <sup>`DATABASE_URL` is a url of Postgres database, where all the bot's data will exist. Format of url: `postgres://<username>:<password>@<host>/<dbname>`
+    
+- `docker build -t [image-name] .`
+- `docker run --env CREATOR_CHAT_ID=[creator-id] --env LOG4J_LOGGER_BOT_TOKEN=[bot-token] [image-name]`
+    
+    - <sup>*[Optional]* `CREATOR_CHAT_ID` is a id of chat, where Log4J will send errors
+    - <sup>*[Optional]* `LOG4J_LOGGER_BOT_TOKEN` is same as a `BOT_TOKEN`, but for Log4J reports bot<sub><sup>
 
 #####To just compile program and get the result, you must write different last command in docker's CLI
 - `docker run -it -v [result-destination]:/usr/src/disk [image-name] cp -R ./../.. /usr/src/disk`
