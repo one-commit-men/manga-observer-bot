@@ -78,6 +78,9 @@ object TrackerKunBot : TelegramLongPollingBot() {
     }
 
     private fun safeSendMessage(message: SendMessage) {
+        if (message.chatId.toLong() < 0) {
+            println("All OK. Emulating sending..."); return
+        } //if testing hack
         try {
             sendMessage(message)
         } catch (e: TelegramApiException) {
