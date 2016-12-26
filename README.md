@@ -24,6 +24,7 @@ As a first step - install docker for your platform
 #####To run program from docker image, you must write 2 commands in docker's CLI
 - `docker build -t [image-name] https://github.com/one-commit-men/manga-observer-bot.git`
 - `docker run [image-name] --env BOT_TOKEN=[bot-token] --env CREATOR_CHAT_ID=[creator-id] --env DATABASE_URL=[database-url] --env LOG4J_LOGGER_BOT_TOKEN=[bot-token]`
+    
     - <sup>`BOT_TOKEN` is a token of your bot from BotFather
     - <sup>`CREATOR_CHAT_ID` is a id of chat, where Log4J will send errors
     - <sup>`DATABASE_URL` is a url of database, where all the bot's data will exist
